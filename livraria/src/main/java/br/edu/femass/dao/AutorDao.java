@@ -49,7 +49,6 @@ public class AutorDao extends DaoPostgres implements  Dao<Autor>{
         ps.setString(2, value.getSobreNome());
         ps.setLong(3, value.getId());
         ps.executeUpdate();
-
     }
 
     @Override

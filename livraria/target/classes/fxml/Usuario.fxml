@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.controller.UsuarioController">
+    <children>
+        <Pane minHeight="356.0" minWidth="225.0" prefHeight="356.0" prefWidth="225.0">
+            <children>
+                <ListView fx:id="LstUsuarios" layoutX="7.0" layoutY="22.0" onKeyPressed="#LstUsuarios_KeyPressed" onMouseClicked="#LstUsuarios_MouseClicked" prefHeight="287.0" prefWidth="166.0" />
+                <Button fx:id="BtnIncluir" layoutX="14.0" layoutY="318.0" mnemonicParsing="false" onAction="#BtnIncluir_Action" text="Incluir" />
+                <Button fx:id="BtnExcluir" layoutX="157.0" layoutY="318.0" mnemonicParsing="false" onAction="#BtnExcluir_Action" text="Excluir" />
+                <Label layoutX="193.0" layoutY="30.0" text="Nome" />
+                <Label layoutX="195.0" layoutY="74.0" text="Prazo Devolução" />
+            <Label layoutX="195.0" layoutY="113.0" text="Tipo" />
+            <Label fx:id="LblSubClasse" layoutX="195.0" layoutY="149.0" text="Matrícula" />
+            <Button fx:id="BtnAlterar" layoutX="88.0" layoutY="318.0" mnemonicParsing="false" onAction="#BtnIncluir_Action" text="Alterar" />
+            </children>
+        </Pane>
+        <Pane minHeight="356.0" minWidth="316.0" prefHeight="365.0" prefWidth="316.0">
+            <children>
+                <TextField fx:id="TxtPrazoDevolucao" disable="true" layoutX="88.0" layoutY="71.0" prefHeight="27.0" prefWidth="213.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Button fx:id="BtnGravar" disable="true" layoutX="209.0" layoutY="233.0" mnemonicParsing="false" onAction="#BtnGravar_Action" prefHeight="36.0" prefWidth="92.0" text="Gravar" />
+                <Button fx:id="BtnCancelar" disable="true" layoutX="14.0" layoutY="233.0" mnemonicParsing="false" onAction="#BtnCancelar_Action" prefHeight="36.0" prefWidth="92.0" text="Cancelar" />
+                <TextField fx:id="TxtNome" disable="true" layoutX="39.0" layoutY="30.0" prefHeight="25.0" prefWidth="262.0" />
+            <RadioButton fx:id="Radio_Professor" disable="true" layoutX="60.0" layoutY="112.0" mnemonicParsing="false" text="Professor">
+               <toggleGroup>
+                  <ToggleGroup fx:id="tipo_usuario" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="Radio_Aluno" disable="true" layoutX="163.0" layoutY="112.0" mnemonicParsing="false" onKeyPressed="#Radio_Aluno_KeyPressed" onMouseClicked="#Radio_Aluno_MouseClicked" selected="true" text="Aluno" toggleGroup="$tipo_usuario" />
+            <TextField fx:id="TxtSubClasse" layoutX="90.0" layoutY="145.0" prefHeight="27.0" prefWidth="213.0" />
+            </children>
+        </Pane>
+    </children>
+</HBox>

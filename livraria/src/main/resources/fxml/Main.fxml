@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<Pane prefHeight="176.0" prefWidth="189.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.femass.controller.MainController">
+   <children>
+        <Button fx:id="BtnAutores" onAction="#BtnAutores_Action" prefHeight="27.0" prefWidth="148.0" text="Autores" />
+      <Button fx:id="BtnGeneros" layoutY="46.0" mnemonicParsing="false" onAction="#BtnGeneros_Action" prefHeight="27.0" prefWidth="148.0" text="Gêneros" />
+      <Button fx:id="BtnUsuarios" layoutY="96.0" mnemonicParsing="false" onAction="#BtnUsuarios_Action" prefHeight="27.0" prefWidth="148.0" text="Usuários" />
+   </children>
+</Pane>

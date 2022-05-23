@@ -1,26 +1,31 @@
 package br.edu.femass.controller;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.*;
-
-import br.edu.femass.dao.AutorDao;
+import br.edu.femass.dao.GeneroDao;
 import br.edu.femass.model.Autor;
+import br.edu.femass.model.Genero;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
-public class AutorController implements Initializable {
-    private final AutorDao autorDao = new AutorDao();
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
+
+public class GeneroController implements Initializable {
+    private final GeneroDao generoDao = new GeneroDao();
 
     @FXML
-    private ListView<Autor> LstAutores;
+    private ListView<Genero> LstGeneros;
 
     @FXML
     private Button BtnIncluir;
@@ -39,40 +44,34 @@ public class AutorController implements Initializable {
     @FXML
     private TextField TxtNome;
 
-    @FXML
-    private TextField TxtSobrenome;
 
 
     private void limparTela() {
-        TxtSobrenome.setText("");
         TxtNome.setText("");
     }
     private void habilitarInterface(Boolean incluir) {
         TxtNome.setDisable(!incluir);
-        TxtSobrenome.setDisable(!incluir);
         BtnGravar.setDisable(!incluir);
         BtnCancelar.setDisable(!incluir);
         BtnExcluir.setDisable(incluir);
         BtnIncluir.setDisable(incluir);
-        LstAutores.setDisable(incluir);
+        LstGeneros.setDisable(incluir);
     }
 
-    private void exibirAutor() {
-        Autor autor = LstAutores.getSelectionModel().getSelectedItem();
-        if (autor==null) return;
-        TxtNome.setText(autor.getNome());
-        TxtSobrenome.setText(autor.getSobreNome());
-
-    }
-
-    @FXML
-    private void LstAutores_MouseClicked(MouseEvent evento) {
-        exibirAutor();
+    private void exibirGenero() {
+        Genero genero = LstGeneros.getSelectionModel().getSelectedItem();
+        if (genero==null) return;
+        TxtNome.setText(genero.getNome());
     }
 
     @FXML
-    private void LstAutores_KeyPressed(KeyEvent evento) {
-        exibirAutor();
+    private void LstGeneros_MouseClicked(MouseEvent evento) {
+        exibirGenero();
+    }
+
+    @FXML
+    private void LstGeneros_KeyPressed(KeyEvent evento) {
+        exibirGenero();
     }
 
     @FXML
@@ -85,12 +84,12 @@ public class AutorController implements Initializable {
 
     @FXML
     private void BtnExcluir_Action(ActionEvent evento) {
-        Autor autor = LstAutores.getSelectionModel().getSelectedItem();
+        Genero genero = LstGeneros.getSelectionModel().getSelectedItem();
 
-        if (autor==null) return;
+        if (genero==null) return;
 
         try {
-            autorDao.excluir(autor);
+            generoDao.excluir(genero);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -101,9 +100,9 @@ public class AutorController implements Initializable {
 
     @FXML
     private void BtnAlterar_Action(ActionEvent evento) {
-        Autor autor = LstAutores.getSelectionModel().getSelectedItem();
+        Genero genero = LstGeneros.getSelectionModel().getSelectedItem();
 
-        if (autor==null) return;
+        if (genero==null) return;
         habilitarInterface(true);
         BtnGravar.setText("Alterar");
         TxtNome.requestFocus();
@@ -111,32 +110,30 @@ public class AutorController implements Initializable {
     }
     @FXML
     private void BtnGravar_Action(ActionEvent evento) {
-        Autor autor = new Autor();
-        autor.setSobreNome(TxtSobrenome.getText());
-        autor.setNome(TxtNome.getText());
-        if (Objects.equals(TxtSobrenome.getText(), "") || Objects.equals(TxtNome.getText(), "")){
+        Genero genero = new Genero();
+        genero.setNome(TxtNome.getText());
+        if (TxtNome.getText().equals("")){
             Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.show();
         }
         else {
             if (Objects.equals(BtnGravar.getText(), "Gravar")) {
                 try {
-                    autorDao.gravar(autor);
+                    generoDao.gravar(genero);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
             else{
-                autor.setId(LstAutores.getSelectionModel().getSelectedItem().getId());
+                genero.setId(LstGeneros.getSelectionModel().getSelectedItem().getId());
                 try {
-                    autorDao.alterar(autor);
+                    generoDao.alterar(genero);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
             atualizarLista();
             habilitarInterface(false);
-
         }
     }
     @FXML
@@ -146,15 +143,14 @@ public class AutorController implements Initializable {
 
 
     private void atualizarLista() {
-        BtnGravar.setText("Gravar");
-        List<Autor> autores;
+        List<Genero> generos;
         try {
-            autores = autorDao.listar();
+            generos = generoDao.listar();
         } catch (Exception e) {
-            autores = new ArrayList<>();
+            generos = new ArrayList<>();
         }
-        ObservableList<Autor> autoresOb = FXCollections.observableArrayList(autores);
-        LstAutores.setItems(autoresOb);
+        ObservableList<Genero> autoresOb = FXCollections.observableArrayList(generos);
+        LstGeneros.setItems(autoresOb);
     }
 
     @Override
